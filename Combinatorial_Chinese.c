@@ -36,7 +36,11 @@ int main() {
   for (scanf("%d", &test_cases); test_cases; test_cases--) {
     long int m, n;
     scanf("%ld %ld", &m, &n);
-    printf( "%ld\n", Combinatorial(m, n));
+    if (Combinatorial(m, n) == ERROR) {
+      printf("Invalid input!\n");
+    } else {
+      printf("%ld\n", Combinatorial(m, n));
+    }
   }
 
   return 0;
