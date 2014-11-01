@@ -1,4 +1,6 @@
 #include "codeexchange.h"
+#include <string>
+using std::string;
 
 CodeExchange::CodeExchange() {}
 
@@ -86,6 +88,7 @@ std::string CodeExchange::MorseEnCode(std::string text) {
       case 'z': case 'Z':
         code += "--..";
         break;
+
       case '0':
         code += "-----";
         break;
@@ -116,11 +119,66 @@ std::string CodeExchange::MorseEnCode(std::string text) {
       case '9':
         code += "----.";
         break;
+
       case ' ':
         code += "/";
         break;
       case '\n':
         code += "\n";
+        break;
+      case '.':
+        code += ".-.-.-";
+        break;
+      case ',':
+        code += "--..--";
+        break;
+      case '?':
+        code += "..--..";
+        break;
+      case '\'':
+        code += ".----.";
+        break;
+      case '!':
+        code += "-.-.--";
+        break;
+      case '/':
+        code += "-..-.";
+        break;
+      case '(':
+        code += "-.--.";
+        break;
+      case ')':
+        code += "-.--.-";
+        break;
+      case '&':
+        code += ".-...";
+        break;
+      case ':':
+        code += "---...";
+        break;
+      case ';':
+        code += "-.-.-.";
+        break;
+      case '=':
+        code += "-...-";
+        break;
+      case '+':
+        code += ".-.-.";
+        break;
+      case '-':
+        code += "-....-";
+        break;
+      case '_':
+        code += "..--.-";
+        break;
+      case '\"':
+        code += ".-..-.";
+        break;
+      case '$':
+        code += "...-..-";
+        break;
+      case '@':
+        code += ".--.-.";
         break;
       default:
         code = "unexpected text!";
@@ -176,6 +234,7 @@ std::string CodeExchange::MorseDeCode(std::string code) {
         else if (letter == "-..-")  text += "x";
         else if (letter == "-.--")  text += "y";
         else if (letter == "--..")  text += "z";
+
         else if (letter == "-----")  text += "0";
         else if (letter == ".----")  text += "1";
         else if (letter == "..---")  text += "2";
@@ -186,6 +245,25 @@ std::string CodeExchange::MorseDeCode(std::string code) {
         else if (letter == "--...")  text += "7";
         else if (letter == "---..")  text += "8";
         else if (letter == "----.")  text += "9";
+
+        else if (letter == ".-.-.-")  text += ".";
+        else if (letter == "--..--")  text += ",";
+        else if (letter == "..--..")  text += "?";
+        else if (letter == ".----.")  text += "\'";
+        else if (letter == "-.-.--")  text += "!";
+        else if (letter == "-..-.")   text += "/";
+        else if (letter == "-.--.")   text += "(";
+        else if (letter == "-.--.-")  text += ")";
+        else if (letter == ".-...")   text += "&";
+        else if (letter == "---...")  text += ":";
+        else if (letter == "-.-.-.")  text += ";";
+        else if (letter == "-...-")   text += "=";
+        else if (letter == ".-.-.")   text += "+";
+        else if (letter == "-....-")  text += "-";
+        else if (letter == "..--.-")  text += "_";
+        else if (letter == ".-..-.")  text += "\"";
+        else if (letter == "...-..-") text += "$";
+        else if (letter == ".--.-.")  text += "@";
         else text += letter;
 
         letter_begin = letter_end+1;
@@ -200,4 +278,19 @@ std::string CodeExchange::MorseDeCode(std::string code) {
   }
 
   return text;
+}
+
+std::string CodeExchange::Reverse(std::string text) {
+  return std::string(text.rbegin(), text.rend());
+}
+
+std::string CodeExchange::ReverseReplace(std::string text) {
+  std::string code;
+  for (int i = 0; text[i]; i++) {
+    if (isalpha(text[i]))
+      code += ('a' + 'z') - tolower(text[i]);
+    else
+      code += text[i];
+  }
+  return code;
 }
