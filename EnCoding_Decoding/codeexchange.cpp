@@ -9,6 +9,7 @@ std::string CodeExchange::MorseEnCode(std::string text) {
   for (int i = 0; text[i]; i++) {
     if (i && (text[i] != '\n' && text[i-1] != '\n')
         && (text[i] != ' ' && text[i-1] != ' ')) code += " ";
+    // 摩斯密码表穷举
     switch(text[i]) {
       case 'a': case 'A':
         code += ".-";
@@ -190,18 +191,22 @@ std::string CodeExchange::MorseEnCode(std::string text) {
 
 std::string CodeExchange::MorseDeCode(std::string code) {
   std::string text;
+
+  // 分割成句子
   int sentence_begin = 0, sentence_end = 0;
   while (sentence_end != std::string::npos) {
     sentence_end = code.find('\n', sentence_begin);
     int sentence_length = sentence_end-sentence_begin;
     std::string sentence(code, sentence_begin, sentence_length);
 
+    // 分割成单词
     int word_begin = 0, word_end = 0;
     while (word_end != std::string::npos) {
       word_end = sentence.find('/',word_begin);
       int word_length = word_end - word_begin;
       std::string word(sentence, word_begin, word_length);
 
+      // 分割成字母或符号
       int letter_begin = 0, letter_end = 0;
       while (letter_end != std::string::npos) {
         letter_end = word.find(' ', letter_begin);
@@ -291,6 +296,22 @@ std::string CodeExchange::ReverseReplace(std::string text) {
       code += ('a' + 'z') - tolower(text[i]);
     else
       code += text[i];
+  }
+  return code;
+}
+
+std::string CodeExchange::Caesar(std::string text, int x) {
+  std::string code;
+  for (int i = 0; text[i]; i++) {
+    if (isalpha(text[i])) {
+      char temp = tolower(text[i]);
+      temp += x;
+      if (temp > 'z') temp -= 26;
+      if (temp < 'a') temp += 26;
+      code += temp;
+    } else {
+      code += text[i];
+    }
   }
   return code;
 }
