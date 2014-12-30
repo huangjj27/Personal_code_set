@@ -9,8 +9,9 @@ std::string CodeExchange::MorseEnCode(std::string text) {
   for (int i = 0; text[i]; i++) {
     if (i && (text[i] != '\n' && text[i-1] != '\n')
         && (text[i] != ' ' && text[i-1] != ' ')) code += " ";
-    // Ä¦Ë¹ÃÜÂë±íÇî¾Ù
+    // list character map
     switch(text[i]) {
+      // alphabet
       case 'a': case 'A':
         code += ".-";
         break;
@@ -90,6 +91,7 @@ std::string CodeExchange::MorseEnCode(std::string text) {
         code += "--..";
         break;
 
+      // numbers
       case '0':
         code += "-----";
         break;
@@ -121,6 +123,7 @@ std::string CodeExchange::MorseEnCode(std::string text) {
         code += "----.";
         break;
 
+    // signs
       case ' ':
         code += "/";
         break;
@@ -181,6 +184,8 @@ std::string CodeExchange::MorseEnCode(std::string text) {
       case '@':
         code += ".--.-.";
         break;
+
+      // cases out of exception
       default:
         code = "unexpected text!";
         break;
@@ -192,21 +197,21 @@ std::string CodeExchange::MorseEnCode(std::string text) {
 std::string CodeExchange::MorseDeCode(std::string code) {
   std::string text;
 
-  // ·Ö¸î³É¾ä×Ó
+  // Â·Ã–Â¸Ã®Â³Ã‰Â¾Ã¤Ã—Ã“
   int sentence_begin = 0, sentence_end = 0;
   while (sentence_end != std::string::npos) {
     sentence_end = code.find('\n', sentence_begin);
     int sentence_length = sentence_end-sentence_begin;
     std::string sentence(code, sentence_begin, sentence_length);
 
-    // ·Ö¸î³Éµ¥´Ê
+    // Â·Ã–Â¸Ã®Â³Ã‰ÂµÂ¥Â´ÃŠ
     int word_begin = 0, word_end = 0;
     while (word_end != std::string::npos) {
       word_end = sentence.find('/',word_begin);
       int word_length = word_end - word_begin;
       std::string word(sentence, word_begin, word_length);
 
-      // ·Ö¸î³É×ÖÄ¸»ò·ûºÅ
+      // Â·Ã–Â¸Ã®Â³Ã‰Ã—Ã–Ã„Â¸Â»Ã²Â·Ã»ÂºÃ…
       int letter_begin = 0, letter_end = 0;
       while (letter_end != std::string::npos) {
         letter_end = word.find(' ', letter_begin);
