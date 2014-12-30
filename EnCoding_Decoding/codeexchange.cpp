@@ -197,21 +197,21 @@ std::string CodeExchange::MorseEnCode(std::string text) {
 std::string CodeExchange::MorseDeCode(std::string code) {
   std::string text;
 
-  // ·Ö¸î³É¾ä×Ó
+  // translate a sentence
   int sentence_begin = 0, sentence_end = 0;
   while (sentence_end != std::string::npos) {
     sentence_end = code.find('\n', sentence_begin);
     int sentence_length = sentence_end-sentence_begin;
     std::string sentence(code, sentence_begin, sentence_length);
 
-    // ·Ö¸î³Éµ¥´Ê
+    // translate a word
     int word_begin = 0, word_end = 0;
     while (word_end != std::string::npos) {
       word_end = sentence.find('/',word_begin);
       int word_length = word_end - word_begin;
       std::string word(sentence, word_begin, word_length);
 
-      // ·Ö¸î³É×ÖÄ¸»ò·ûºÅ
+      // translate a letter
       int letter_begin = 0, letter_end = 0;
       while (letter_end != std::string::npos) {
         letter_end = word.find(' ', letter_begin);
