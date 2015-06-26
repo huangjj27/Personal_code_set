@@ -520,6 +520,7 @@ int A(int i, int W) {
       A(i - 1, W) : v[i] + A(i - 1, W - w[i]);
   }
 }
+
 // Corrected answer.
 int A(int n, int W) {
   int i, j;
