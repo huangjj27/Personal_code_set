@@ -28,10 +28,33 @@ void SelectionSort(int* numbers, int begin, int end) {
       if (numbers[j] < numbers[min]) min = j;
     }
 
-    // exchange
-    int temp = numbers[min];
-    numbers[min] = numbers[i];
-    numbers[i] = temp;
+    // exchange. when a smaller number than nubmers[i] is found, exchange them.
+    if (i != min) {
+      int temp = numbers[min];
+      numbers[min] = numbers[i];
+      numbers[i] = temp;
+    }
+  }
+}
+
+// InsertionSort: a stable sorting algorithm that insert a number to the sorted
+// sequence till all numbers are sorted.
+// @Param numbers: the array pointer storing the numbers
+// @Param begin, end: show the range we need to sort.(begin <= i < end)
+void InsertionSort(int* numbers, int begin, int end) {
+  for (int i = begin, i < end; i++) {
+    // insert numbers[j] to certain position
+    int temp = numbers[i+1];
+    for (int j = i+1; j > begin; j--) {
+      if (numbers[temp] < numbers[j-1]) {
+        // if j is not the position, move temp to the index before j
+        // and store the data.
+        numbers[j] = numbers[j-1];
+      } else {
+        numbers[j] = temp;      // if j is the position, insert it
+        break;                  // and go to insert the next number.
+      }
+    }
   }
 }
 
