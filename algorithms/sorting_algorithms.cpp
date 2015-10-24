@@ -3,10 +3,10 @@
 // BubleSort: a most simple way to sort a series of numbers.
 // but not so efficient.
 // @Param numbers: the array pointer storing the numbers
-// @Param begin, end: show the range we need to sort.(begin <= i < end)
-void BubleSort(int *numbers, int begin, int end) {
-  for (int i = begin; i < end; i++) {
-    for (int j = end - 1; j > i; j--) {
+// @Param beginning, tail: show the range we need to sort.(begin <= i < tail)
+void BubleSort(int *numbers, int beginning, int tail) {
+  for (int i = beginning; i < tail; i++) {
+    for (int j = tail - 1; j > i; j--) {
       if (numbers[j] < numbers[j - 1]) {
         int tmp = numbers[j - 1];
         numbers[j - 1] = numbers[j];
@@ -18,13 +18,13 @@ void BubleSort(int *numbers, int begin, int end) {
 
 // SelectionSort: a unstable sorting algorithm.
 // @Param numbers: the array pointer storing the numbers
-// @Param begin, end: show the range we need to sort.(begin <= i < end)
-void SelectionSort(int* numbers, int begin, int end) {
-  for (int i = begin; i < end; i++) {
+// @Param beginning, tail: show the range we need to sort.(beginning <= i < tail)
+void SelectionSort(int* numbers, int beginning, int tail) {
+  for (int i = beginning; i < tail; i++) {
     // suppose the index of the number is i, and the left of i is sorted.
     // then find the mininum of the rest and exchange it with numbers[i].
     int min = i;
-    for (int j = i + 1; j < end; j++) {
+    for (int j = i + 1; j < tail; j++) {
       if (numbers[j] < numbers[min]) min = j;
     }
 
@@ -40,12 +40,12 @@ void SelectionSort(int* numbers, int begin, int end) {
 // InsertionSort: a stable sorting algorithm that insert a number to the sorted
 // sequence till all numbers are sorted.
 // @Param numbers: the array pointer storing the numbers
-// @Param begin, end: show the range we need to sort.(begin <= i < end)
-void InsertionSort(int* numbers, int begin, int end) {
-  for (int i = begin, i < end; i++) {
+// @Param beginning, tail: show the range we need to sort.(beginning <= i < tail)
+void InsertionSort(int* numbers, int beginning, int tail) {
+  for (int i = beginning, i < tail; i++) {
     // insert numbers[j] to certain position
     int temp = numbers[i+1];
-    for (int j = i+1; j > begin; j--) {
+    for (int j = i+1; j > beginning; j--) {
       if (numbers[temp] < numbers[j-1]) {
         // if j is not the position, move temp to the index before j
         // and store the data.
@@ -61,9 +61,9 @@ void InsertionSort(int* numbers, int begin, int end) {
 // QuickSort.Just to put the numbers smaller than x on the left
 // and the bigger on the right.
 // @Param numbers: the array pointer storing the numbers
-// @Param begin, end: show the range we need to sort.(begin <= i < end)
-void QuickSort(int *numbers, int head, int end) {
-  int t, i = head, j = end, x = numbers[(i + j) / 2];
+// @Param beginning, tail: show the range we need to sort.(beginning <= i < tail)
+void QuickSort(int *numbers, int head, int tail) {
+  int t, i = head, j = tail, x = numbers[(i + j) / 2];
   do {
     while (x > numbers[i]) i++;
     while (x < numbers[j]) j--;
@@ -74,6 +74,6 @@ void QuickSort(int *numbers, int head, int end) {
       i++; j--;
     }
   } while (i <= j);
-  if (i < end) quick_sort(numbers, i, end);     // sort the left
+  if (i < tail) quick_sort(numbers, i, tail);     // sort the left
   if (head < j) quick_sort(numbers, head, j);   // sort the right
 }
