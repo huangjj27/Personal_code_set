@@ -9,6 +9,20 @@ BigNumber::BigNumber() {
   for (int i = 0; i < MAX_SIZE; i++) data_[i] = 0;
 }
 
+BigNumber::BigNumber(string data_str) {
+  if (data_str[0] == '-') sign_ = 1;
+  if (data_str[0] <= '0' || data_str[0] >= '9')
+    data_str = data_str.substr(1, data_str.size() - 1);
+
+  length_ = data_str.size() / 8;
+  if (data_str.size() % 8) length_++;
+
+  for (int i = 0; i < data_str.size(); i++) {
+    data_[i / 8] *= 10;
+    data_[i / 8] += data_str[i] - '0';
+  }
+}
+
 BigNumber& operator +(const BigNumber& A, const BigNumber& B) {
   BigNumber result;
   int carry = 0;
@@ -26,11 +40,11 @@ BigNumber& operator +(const BigNumber& A, const BigNumber& B) {
 BigNumber& operator -(const BigNumber& A, const BigNumber& B) {
   BigNumber result;
   switch (isBigger(A, B)) {
-    case 0: 
+    case 0:
       result.sign_ = 0;
       result.length_ = 1;
       break;
-    case 1: 
+    case 1:
       result = Sub(A, B);
       break;
     case -1:

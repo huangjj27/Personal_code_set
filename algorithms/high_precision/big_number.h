@@ -11,6 +11,7 @@ class BigNumber {
  public:
   // constructor
   BigNumber();
+  BigNumber(string data_str);
 
   // 5 fundamental operations
   friend BigNumber& operator +(const BigNumber& A, const BigNumber& B);
@@ -24,7 +25,7 @@ class BigNumber {
 
  private:
   // datas
-   bool sign_;             // 0 for negative and 1 for passative
+  bool sign_;             // 1 for negative and 0 for passative
   int length_;             // how many elements of the data_ array are used.
   int data_[MAX_SIZE];    // datas.each element store 8 demical digits
 
